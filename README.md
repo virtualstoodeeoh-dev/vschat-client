@@ -22,7 +22,7 @@ useMessages();
 import { useVSChat, useConversation, useMessages } from "@vstoodeeoh/vschat-client"
 const vsChat = useVSChat("http://localhost:5555", "1234", userId);
 const vsCon = useConversations();
-const messages = useMessages();
+const vsMsg = useMessages();
 ```
 
 ## Examples
