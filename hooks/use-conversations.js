@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import useVSChatStore from "./store";
+import useVSChatStore from "../store";
 
 const useConversations = () => {
   const store = useVSChatStore((state) => state);

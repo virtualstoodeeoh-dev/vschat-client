@@ -83,6 +83,23 @@ const vsCon = useConversations();
 vsCon.setConversation("Conversation ID);
 ```
 
+### Get Online Users (Related To UserID)
+
+```
+const vsChat = useVSChat("http://localhost:5555", "1234", userId);
+const onlineUsers = vsChat.onlineUsers;
+console.log(onlineUsers);
+
+/* Returns
+[
+    {
+        "userId": "6330b9202cde875e935aeady",
+        "socketId": "nugNMvEBlhiDfSKsAADT"
+    }
+]
+*/
+```
+
 ### Send Message
 
 `By default sendMessage sends a message to the selected conversation unless a conversation ID was specified.`

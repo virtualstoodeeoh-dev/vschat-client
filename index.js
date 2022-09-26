@@ -1,5 +1,5 @@
-import useConversation from "./useConversation";
-import useMessage from "./useMessage";
-import useVSChat from "./use-vschat";
+import useConversations from "./hooks/use-conversations";
+import useMessages from "./hooks/use-messages";
+import useVSChat from "./hooks/use-vschat";
 
-export { useConversation, useMessage, useVSChat };
+export { useConversations, useMessages, useVSChat };

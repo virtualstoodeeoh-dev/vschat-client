@@ -6,6 +6,7 @@ const useVSChatStore = create((set) => ({
   currentConversationId: null,
   userId: null,
   conversations: [],
+  onlineUsers: [],
   socket: null,
   status: false,
   init: (serverURL, serverKey, userId) => {
@@ -16,6 +17,9 @@ const useVSChatStore = create((set) => ({
   },
   setConversations: (conversations) => {
     set({ conversations });
+  },
+  setOnlineUsers: (onlineUsers) => {
+    set({ onlineUsers });
   },
   setSocket: (socket) => {
     set({ socket });

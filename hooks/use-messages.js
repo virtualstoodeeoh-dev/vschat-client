@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import useVSChatStore from "./store";
+import useVSChatStore from "../store";
 
 const useMessages = () => {
   const [messages, setMessages] = useState([]);
@@ -19,41 +19,6 @@ const useMessages = () => {
       .get(`${store.serverURL}/vschat/messages/${store.currentConversationId}`)
       .then((res) => setMessages(res.data));
   };
-
-  useEffect(() => {
-    if (
-      store.serverURL &&
-      store.serverKey &&
-      store.currentConversationId &&
-      store.userId
-    ) {
-      getMessages();
-    }
-  }, [
-    store.serverURL,
-    store.serverKey,
-    store.currentConversationId,
-    store.userId,
-    store.socket,
-  ]);
-
-  useEffect(() => {
-    socket &&
-      socket.on("getMessage", (data) => {
-        console.log(data);
-        setArrivalMessage({
-          sender: data.senderId,
-          text: data.text,
-          createdAt: Date.now(),
-        });
-      });
-  }, [socket]);
-
-  useEffect(() => {
-    arrivalMessage &&
-      currentChat?.participants.includes(arrivalMessage.sender) &&
-      setMessages((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sendMessage = (message) => {
     if (
@@ -84,6 +49,40 @@ const useMessages = () => {
         .then(() => getMessages());
     }
   };
+
+  useEffect(() => {
+    if (
+      store.serverURL &&
+      store.serverKey &&
+      store.currentConversationId &&
+      store.userId
+    ) {
+      getMessages();
+    }
+  }, [
+    store.serverURL,
+    store.serverKey,
+    store.currentConversationId,
+    store.userId,
+    store.socket,
+  ]);
+
+  useEffect(() => {
+    socket &&
+      socket.on("getMessage", (data) => {
+        setArrivalMessage({
+          sender: data.senderId,
+          text: data.text,
+          createdAt: Date.now(),
+        });
+      });
+  }, [socket]);
+
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.participants.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     texts: messages,

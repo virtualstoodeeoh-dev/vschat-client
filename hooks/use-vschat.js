@@ -1,9 +1,10 @@
-import { useEffect, useRef } from "react";
-import useVSChatStore from "./store";
+import { useEffect, useRef, useState } from "react";
+import useVSChatStore from "../store";
 import { io } from "socket.io-client";
 
 const useVSChat = (server, key, userId) => {
   const socket = useRef();
+  const [allUsers, setAllUsers] = useState([]);
 
   if (!server || !key) {
     throw new Error("You must provide a server and key");
@@ -32,13 +33,20 @@ const useVSChat = (server, key, userId) => {
     if (userId) {
       socket.current.emit("addUser", userId);
       socket.current.on("getUsers", (users) => {
-        //console.log(users);
+        setAllUsers(users);
+
+        // Set online users
+        if (allUsers) {
+          const onlineUsers = users.filter((user) => user.userId !== userId);
+          store.setOnlineUsers(onlineUsers);
+        }
       });
     }
-  }, [userId]);
+  }, [userId, store.conversations]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     status: store.status,
+    onlineUsers: store.onlineUsers,
   };
 };
 
