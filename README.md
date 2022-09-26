@@ -76,6 +76,13 @@ console.log(messages)
 */
 ```
 
+### Set Current Conversation
+
+```
+const vsCon = useConversations();
+vsCon.setConversation("Conversation ID);
+```
+
 ### Send Message
 
 `By default sendMessage sends a message to the selected conversation unless a conversation ID was specified.`
